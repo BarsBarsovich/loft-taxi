@@ -1,31 +1,3 @@
-.map{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
-
-
-.header {
-    background: #1C1A19;
-    /* height: 102px; */
-    width: 100%;
-}
-
-.header__container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    padding: 18px 50px;
-}
-
-.container {
-    width: 1440px;
-    margin: 0 auto;
-}
-
-
 ul {
     margin: 0;
     padding: 0;

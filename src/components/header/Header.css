@@ -1,0 +1,13 @@
+.header {
+    background: #1C1A19;
+    /* height: 102px; */
+    width: 100%;
+}
+
+.header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 18px 50px;
+}

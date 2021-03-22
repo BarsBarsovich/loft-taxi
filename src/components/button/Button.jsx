@@ -1,9 +1,9 @@
 import './Button.css'
 
-const Button = (props) => {
+const Button = ({title}) => {
     return (
         <button className='button' type='submit'>
-            {props.title}
+            {title}
         </button>
     );
 };
