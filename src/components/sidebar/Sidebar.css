@@ -1,0 +1,12 @@
+.sidebar {
+    width: 485px;
+    height: 100%;
+    background: #1C1A19;
+}
+
+.sidebar__container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}

@@ -1,0 +1,13 @@
+.button {
+    background: #FDBF5A;
+    border-radius: 70px;
+    padding: 16px 141px;
+    font-size: 25px;
+    color: #000000;
+    border: none;
+    /*outline: none;*/
+}
+
+/*.button:active{*/
+/*    outline: ;*/
+/*}*/
