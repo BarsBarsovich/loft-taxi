@@ -15,9 +15,8 @@ const Input = ({title, type, placeholder, value, onChange}) => {
 Input.propTypes = {
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
     placeholder: PropTypes.string.isRequired,
-    onChange: PropTypes.func
+    onChange: PropTypes.func.isRequired,
 }
 
 export default Input;

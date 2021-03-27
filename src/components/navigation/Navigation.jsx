@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const Navigation = ({navigateTo}) => {
     const navigationTitles = [{title: 'Карта', key: 'map'}, {title: 'Профиль', key: 'profile'}, {
         title: 'Выйти',
-        key: 'login'
+        key: 'logout'
     }];
     return (
         <ul className="nav__list">
