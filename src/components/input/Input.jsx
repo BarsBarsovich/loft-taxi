@@ -1,5 +1,6 @@
 import * as React from "react";
 import './Input.css';
+import PropTypes from "prop-types";
 
 const Input = ({title, type, placeholder, value, onChange}) => {
     return (
@@ -9,6 +10,14 @@ const Input = ({title, type, placeholder, value, onChange}) => {
                    onChange={(e) => onChange(e.target.value)}/>
         </label>
     );
+}
+
+Input.propTypes = {
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    onChange: PropTypes.func
 }
 
 export default Input;

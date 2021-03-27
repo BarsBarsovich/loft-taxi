@@ -1,4 +1,5 @@
 import './Navigtion.css';
+import PropTypes from "prop-types";
 
 const Navigation = ({navigateTo}) => {
     const navigationTitles = [{title: 'Карта', key: 'map'}, {title: 'Профиль', key: 'profile'}, {
@@ -14,6 +15,10 @@ const Navigation = ({navigateTo}) => {
             ))}
         </ul>
     );
+}
+
+Navigation.propTypes = {
+    navigateTo: PropTypes.func.isRequired
 }
 
 export default Navigation;
