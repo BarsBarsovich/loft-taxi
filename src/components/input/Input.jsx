@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const Input = ({title, type, placeholder, value, onChange}) => {
     return (
-        <label className='login__label'>
+        <label className='login__label' data-testid='input'>
             <p className='login__label-title'>{title}</p>
             <input type={type} placeholder={placeholder} value={value} className='login__input'
                    onChange={(e) => onChange(e.target.value)}/>

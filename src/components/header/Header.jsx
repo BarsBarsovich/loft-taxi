@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const Header = ({navigateTo}) => {
     return (<header className="header">
-        <div className="header__container container">
+        <div className="header__container container" data-testid="header">
             <div className="logo">
                 <a href="/">
                     <img src="logo.png" alt="logo"/>

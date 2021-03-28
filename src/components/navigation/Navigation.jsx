@@ -7,7 +7,7 @@ const Navigation = ({navigateTo}) => {
         key: 'logout'
     }];
     return (
-        <ul className="nav__list">
+        <ul className="nav__list" data-testid="nav">
             {navigationTitles.map((item, index) => (
                 <li key={index} className="nav__item">
                     <span onClick={() => navigateTo(item.key)} className="nav__item-link">{item.title}</span>
