@@ -51,5 +51,5 @@ export function LoginPage({navigateTo}) {
 }
 
 
-export const LoginPageAuth = withAuth(LoginPage)
+// export const LoginPageAuth = withAuth(LoginPage)
 

@@ -13,17 +13,16 @@ class App extends React.Component {
         if (activePage === 'logout'){
             this.props.logout();
         }
-        setTimeout(()=>{
-            this.props.isLoggedIn ?
-                this.setState({activePage}) : this.setState({activePage: 'login'});
-        })
+        if (this.props.isLoggedIn || activePage === 'register') {
+            this.setState({activePage})
+        }
     }
 
     render() {
         return (
             <div className="App">
                 <main className="main">
-                    {this.state.activePage === 'login' && <LoginPageAuth navigateTo={this.navigateTo}/>}
+                    {this.state.activePage === 'login' && <LoginPage navigateTo={this.navigateTo}/>}
                     {this.state.activePage === 'map' && <MapWithAuth navigateTo={this.navigateTo}/>}
                     {this.state.activePage === 'profile' && <Profile navigateTo={this.navigateTo}/>}
                     {this.state.activePage === 'logout' && <LoginPage navigateTo={this.navigateTo}/>}

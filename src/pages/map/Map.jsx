@@ -4,9 +4,6 @@ import Mapbox from "../../components/mapbox/Mapbox";
 import {AuthContext, withAuth} from "../../AuthContext";
 
 function Map({navigateTo}) {
-
-    const context = useState(AuthContext);
-
     return <>
         <Header navigateTo={navigateTo}/>
         <Mapbox/>

@@ -7,7 +7,6 @@ export const AuthProvider = ({children}) => {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
     function login(email, password) {
-        debugger
         setIsLoggedIn(email === 'mail@mail.ru' && password === 'password');
     }
 
