@@ -1,5 +1,6 @@
 import Header from "../../components/header/Header";
 import React from 'react';
+import {withAuth} from "../../AuthContext";
 
 function Profile({navigateTo}) {
     return(
@@ -11,3 +12,4 @@ function Profile({navigateTo}) {
 }
 
 export default Profile;
+// export const ProfileWithAuth = withAuth(Profile);

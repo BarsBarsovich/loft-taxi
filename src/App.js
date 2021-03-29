@@ -1,15 +1,21 @@
 import './App.css';
 import React from 'react';
-import LoginPage from "./pages/login/Login";
-import Map from "./pages/map/Map";
-import Profile from "./pages/profile/Porfile";
+import {LoginPageAuth, LoginPage} from "./pages/login/Login";
+import Map, {MapWithAuth} from "./pages/map/Map";
+import Profile, {ProfileWithAuth} from "./pages/profile/Porfile";
 import Register from "./pages/register/Register";
+import {withAuth} from "./AuthContext";
 
 class App extends React.Component {
     state = {activePage: 'login'}
 
     navigateTo = (activePage) => {
-        this.setState({activePage});
+        if (activePage === 'logout'){
+            this.props.logout();
+        }
+        if (this.props.isLoggedIn || activePage === 'register') {
+            this.setState({activePage})
+        }
     }
 
     render() {
@@ -17,7 +23,7 @@ class App extends React.Component {
             <div className="App">
                 <main className="main">
                     {this.state.activePage === 'login' && <LoginPage navigateTo={this.navigateTo}/>}
-                    {this.state.activePage === 'map' && <Map navigateTo={this.navigateTo}/>}
+                    {this.state.activePage === 'map' && <MapWithAuth navigateTo={this.navigateTo}/>}
                     {this.state.activePage === 'profile' && <Profile navigateTo={this.navigateTo}/>}
                     {this.state.activePage === 'logout' && <LoginPage navigateTo={this.navigateTo}/>}
                     {this.state.activePage === 'register' && <Register navigateTo={this.navigateTo}/>}
@@ -27,4 +33,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default withAuth(App);

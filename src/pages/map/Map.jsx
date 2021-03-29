@@ -1,12 +1,16 @@
 import Header from "../../components/header/Header";
-import React from 'react';
+import React, {useState} from 'react';
+import Mapbox from "../../components/mapbox/Mapbox";
+import {AuthContext, withAuth} from "../../AuthContext";
 
 function Map({navigateTo}) {
     return <>
         <Header navigateTo={navigateTo}/>
-        <h1>Map is here</h1>
+        <Mapbox/>
     </>
 
 }
 
 export default Map;
+
+export const MapWithAuth = withAuth(Map)
