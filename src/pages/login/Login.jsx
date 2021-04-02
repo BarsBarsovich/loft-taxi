@@ -3,14 +3,17 @@ import Button from "../../components/button/Button";
 import './Login.css';
 import React, {useContext, useState} from "react";
 import Input from "../../components/input/Input";
-import {AuthContext, withAuth} from "../../AuthContext";
+import {AuthContext} from "../../AuthContext";
+import {Link} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
-export function LoginPage({navigateTo}) {
+export function LoginPage() {
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
 
     const context = useContext(AuthContext);
+    const history = useHistory();
     return <div className='wrapper'>
         <Sidebar/>
         <div className="login-wrapper">
@@ -25,9 +28,9 @@ export function LoginPage({navigateTo}) {
 
                         context.login(email, password);
 
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             if (context.isLoggedIn) {
-                                navigateTo('map')
+                                history.push('/map')
                             }
                         })
                     }}>
@@ -41,7 +44,9 @@ export function LoginPage({navigateTo}) {
                     </form>
                     <div className="login__footer">
                         <span className='text'>Новый пользователь?</span>
-                        <span className='link' onClick={() => navigateTo('register')}>&nbsp;Регистрация</span>
+                        <Link className="link" to="/register">
+                            &nbsp;Регистрация
+                        </Link>
                     </div>
                 </div>
             </div>

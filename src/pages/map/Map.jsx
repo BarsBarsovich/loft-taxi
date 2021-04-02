@@ -1,7 +1,7 @@
 import Header from "../../components/header/Header";
-import React, {useState} from 'react';
+import React from 'react';
 import Mapbox from "../../components/mapbox/Mapbox";
-import {AuthContext, withAuth} from "../../AuthContext";
+import {withAuth} from "../../AuthContext";
 
 function Map({navigateTo}) {
     return <>

@@ -1,8 +1,7 @@
 import './Header.css';
 import Navigation from "../navigation/Navigation";
-import PropTypes from "prop-types";
 
-const Header = ({navigateTo}) => {
+const Header = () => {
     return (<header className="header">
         <div className="header__container container" data-testid="header">
             <div className="logo">
@@ -10,14 +9,9 @@ const Header = ({navigateTo}) => {
                     <img src="logo.png" alt="logo"/>
                 </a>
             </div>
-            <Navigation navigateTo={navigateTo} />
+            <Navigation/>
         </div>
     </header>)
 };
-
-Header.propTypes = {
-    navigateTo: PropTypes.func.isRequired
-}
-
 
 export default Header;

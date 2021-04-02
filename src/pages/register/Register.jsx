@@ -3,9 +3,10 @@ import React from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Input from "../../components/input/Input";
 import './Register.css';
+import {Link} from "react-router-dom";
 
 
-function Register({navigateTo}) {
+function Register() {
     return (
         <div className='wrapper'>
             <Sidebar/>
@@ -22,7 +23,9 @@ function Register({navigateTo}) {
                         </form>
                         <div className="login__footer">
                             <span className='text'>Уже зарегестрированы?</span>
-                            <span className='link' onClick={() => navigateTo('login')}>&nbsp;Войти</span>
+                            <Link to="/" className="link">
+                                &nbsp;Войти
+                            </Link>
                         </div>
                     </div>
                 </div>

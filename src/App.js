@@ -1,10 +1,11 @@
 import './App.css';
 import React from 'react';
-import {LoginPageAuth, LoginPage} from "./pages/login/Login";
-import Map, {MapWithAuth} from "./pages/map/Map";
-import Profile, {ProfileWithAuth} from "./pages/profile/Porfile";
+import {LoginPage} from "./pages/login/Login";
+import {MapWithAuth} from "./pages/map/Map";
+import Profile from "./pages/profile/Porfile";
 import Register from "./pages/register/Register";
 import {withAuth} from "./AuthContext";
+import {Route, Switch} from "react-router-dom";
 
 class App extends React.Component {
     state = {activePage: 'login'}
@@ -22,11 +23,17 @@ class App extends React.Component {
         return (
             <div className="App">
                 <main className="main">
-                    {this.state.activePage === 'login' && <LoginPage navigateTo={this.navigateTo}/>}
-                    {this.state.activePage === 'map' && <MapWithAuth navigateTo={this.navigateTo}/>}
-                    {this.state.activePage === 'profile' && <Profile navigateTo={this.navigateTo}/>}
-                    {this.state.activePage === 'logout' && <LoginPage navigateTo={this.navigateTo}/>}
-                    {this.state.activePage === 'register' && <Register navigateTo={this.navigateTo}/>}
+                    <Switch>
+                        <Route path="/" component={LoginPage} exact/>
+                        <Route path="/map" component={MapWithAuth} />
+                        <Route path="/profile" component={Profile} />
+                        <Route path="/register" component={Register} />
+                    </Switch>
+                    {/*{this.state.activePage === 'login' && <LoginPage navigateTo={this.navigateTo}/>}*/}
+                    {/*{this.state.activePage === 'map' && <MapWithAuth navigateTo={this.navigateTo}/>}*/}
+                    {/*{this.state.activePage === 'profile' && <Profile navigateTo={this.navigateTo}/>}*/}
+                    {/*{this.state.activePage === 'logout' && <LoginPage navigateTo={this.navigateTo}/>}*/}
+                    {/*{this.state.activePage === 'register' && <Register navigateTo={this.navigateTo}/>}*/}
                 </main>
             </div>
         );

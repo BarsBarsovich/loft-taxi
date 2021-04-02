@@ -1,11 +1,10 @@
 import Header from "../../components/header/Header";
 import React from 'react';
-import {withAuth} from "../../AuthContext";
 
-function Profile({navigateTo}) {
+function Profile() {
     return(
         <>
-            <Header navigateTo={navigateTo}/>
+            <Header/>
             <h1>Profile</h1>
         </>
    )
