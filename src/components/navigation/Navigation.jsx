@@ -1,5 +1,6 @@
 import './Navigtion.css';
 import {Link} from "react-router-dom";
+import React from "react";
 
 const Navigation = () => {
     const navigationTitles = [{title: 'Карта', key: '/map'}, {title: 'Профиль', key: '/profile'}, {

@@ -1,5 +1,7 @@
 import './Sidebar.css';
 import logo from './logo.svg'
+import React from "react";
+
 const Sidebar = () => {
     return (
       <div className='sidebar' data-testid='sidebar'>
