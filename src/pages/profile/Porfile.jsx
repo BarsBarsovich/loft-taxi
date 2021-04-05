@@ -1,5 +1,7 @@
 import Header from "../../components/header/Header";
 import React from 'react';
+import {connect} from "react-redux";
+import {LOGOUT} from "../../store/actions/actions";
 
 function Profile() {
     return(
@@ -11,4 +13,7 @@ function Profile() {
 }
 
 export default Profile;
-// export const ProfileWithAuth = withAuth(Profile);
+export const ProfileWithAuth = connect(
+    null, {LOGOUT}
+
+)(Profile);

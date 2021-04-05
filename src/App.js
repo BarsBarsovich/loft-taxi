@@ -6,6 +6,7 @@ import Profile from "./pages/profile/Porfile";
 import Register from "./pages/register/Register";
 import {withAuth} from "./AuthContext";
 import {Route, Switch} from "react-router-dom";
+import {connect} from "react-redux";
 
 class App extends React.Component {
     state = {activePage: 'login'}
@@ -40,4 +41,6 @@ class App extends React.Component {
     }
 }
 
-export default withAuth(App);
+export default connect(
+    state => ({isLoggedIn: state.auth.isLoggedIn})
+)(App);

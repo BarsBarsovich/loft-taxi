@@ -6,6 +6,8 @@ import Input from "../../components/input/Input";
 import {AuthContext} from "../../AuthContext";
 import {Link} from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import {connect} from 'react-redux';
+import {LOGIN} from "../../store/actions/actions";
 
 
 export function LoginPage() {
@@ -55,6 +57,8 @@ export function LoginPage() {
 
 }
 
-
-// export const LoginPageAuth = withAuth(LoginPage)
+ export const LoginPageAuth = connect(
+     state => ({isLoggedIn: state.auth.isLoggedIn}),
+     {LOGIN})
+ (LoginPage)
 
