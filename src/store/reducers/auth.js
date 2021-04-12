@@ -1,4 +1,4 @@
-import { LOGIN_ACTION, LOGOUT_ACTION } from "../actions/actions";
+import {ROUTES, LOGIN_ACTION, LOGOUT_ACTION} from "../actions/actions";
 
 const initialState = {
     isLoggedIn: false

@@ -5,7 +5,7 @@ import React, {useState} from "react";
 import Input from "../../components/input/Input";
 import {Link, useHistory} from "react-router-dom";
 import {connect} from 'react-redux';
-import {authenticate} from "../../store/actions/actions";
+import {authenticate, routesAction} from "../../store/actions/actions";
 
 
 export function LoginPage(props) {
@@ -29,6 +29,7 @@ export function LoginPage(props) {
                         props.authenticate(email, password);
 
                         if (props.isLoggedIn) {
+                            props.routesAction()
                             history.push('/map');
                         }
 
@@ -55,7 +56,7 @@ export function LoginPage(props) {
 }
 
 export const LoginPageAuth = connect(
-    state => ({isLoggedIn: state.auth.isLoggedIn}),
-    {authenticate})
+    state => ({isLoggedIn: state.auth.isLoggedIn, routes: state.routes}),
+    {authenticate, routesAction})
 (LoginPage)
 

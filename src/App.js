@@ -1,11 +1,8 @@
 import './App.css';
 import React from 'react';
-import {LoginPageAuth} from "./pages/login/Login";
-import Profile from "./pages/profile/Profile";
-import Register from "./pages/register/Register";
-import {Redirect, Route, Switch} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import {connect} from "react-redux";
-import MapPage from "./pages/map/Map";
+import MapPage, {MapPageConnect} from "./pages/map/Map";
 
 class App extends React.Component {
     state = {activePage: 'login'}
@@ -23,12 +20,13 @@ class App extends React.Component {
         return (
             <div className="App">
                 <main className="main">
-                    <Switch>
-                        <Route path="/" component={LoginPageAuth} exact/>
-                        <PrivateRoute path="/map" component={MapPage}/>
-                        <PrivateRoute path="/profile" component={Profile}/>
-                        <Route path="/register" component={Register}/>
-                    </Switch>
+                    <MapPageConnect/>
+                    {/*<Switch>*/}
+                    {/*    <Route path="/" component={LoginPageAuth} exact/>*/}
+                    {/*    <PrivateRoute path="/map" component={MapPage}/>*/}
+                    {/*    <PrivateRoute path="/profile" component={Profile}/>*/}
+                    {/*    <Route path="/register" component={Register}/>*/}
+                    {/*</Switch>*/}
                 </main>
             </div>
         );
@@ -53,3 +51,4 @@ export const PrivateRoute = connect((state) => ({
 export default connect(
     state => ({isLoggedIn: state.auth.isLoggedIn})
 )(App);
+
