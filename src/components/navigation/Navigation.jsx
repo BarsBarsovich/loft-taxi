@@ -1,24 +1,22 @@
 import './Navigtion.css';
-import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
+import React from "react";
 
-const Navigation = ({navigateTo}) => {
-    const navigationTitles = [{title: 'Карта', key: 'map'}, {title: 'Профиль', key: 'profile'}, {
+const Navigation = () => {
+    const navigationTitles = [{title: 'Карта', key: '/map'}, {title: 'Профиль', key: '/profile'}, {
         title: 'Выйти',
-        key: 'logout'
+        key: '/'
     }];
     return (
         <ul className="nav__list" data-testid="nav">
             {navigationTitles.map((item, index) => (
                 <li key={index} className="nav__item">
-                    <span onClick={() => navigateTo(item.key)} className="nav__item-link">{item.title}</span>
+                    <Link to={item.key} className="nav__item-link" >{item.title}</Link>
                 </li>
             ))}
         </ul>
     );
 }
 
-Navigation.propTypes = {
-    navigateTo: PropTypes.func.isRequired
-}
 
 export default Navigation;

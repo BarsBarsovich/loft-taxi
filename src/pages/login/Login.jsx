@@ -1,16 +1,19 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import Button from "../../components/button/Button";
 import './Login.css';
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import Input from "../../components/input/Input";
-import {AuthContext, withAuth} from "../../AuthContext";
+import {Link, useHistory} from "react-router-dom";
+import {connect} from 'react-redux';
+import {authenticate} from "../../store/actions/actions";
 
 
-export function LoginPage({navigateTo}) {
+export function LoginPage(props) {
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
 
-    const context = useContext(AuthContext);
+    const history = useHistory();
+
     return <div className='wrapper'>
         <Sidebar/>
         <div className="login-wrapper">
@@ -23,13 +26,12 @@ export function LoginPage({navigateTo}) {
                             return;
                         }
 
-                        context.login(email, password);
+                        props.authenticate(email, password);
 
-                        setTimeout(()=>{
-                            if (context.isLoggedIn) {
-                                navigateTo('map')
-                            }
-                        })
+                        if (props.isLoggedIn) {
+                            history.push('/map');
+                        }
+
                     }}>
                         <Input value={email} title='Email' type='text' placeholder='mail@mail.ru' onChange={setEmail}/>
                         <Input value={password} title='Пароль' type='password' placeholder='Введите пароль'
@@ -41,7 +43,9 @@ export function LoginPage({navigateTo}) {
                     </form>
                     <div className="login__footer">
                         <span className='text'>Новый пользователь?</span>
-                        <span className='link' onClick={() => navigateTo('register')}>&nbsp;Регистрация</span>
+                        <Link className="link" to="/register">
+                            &nbsp;Регистрация
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -50,6 +54,8 @@ export function LoginPage({navigateTo}) {
 
 }
 
-
-// export const LoginPageAuth = withAuth(LoginPage)
+export const LoginPageAuth = connect(
+    state => ({isLoggedIn: state.auth.isLoggedIn}),
+    {authenticate})
+(LoginPage)
 

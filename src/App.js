@@ -1,16 +1,17 @@
 import './App.css';
 import React from 'react';
-import {LoginPageAuth, LoginPage} from "./pages/login/Login";
-import Map, {MapWithAuth} from "./pages/map/Map";
-import Profile, {ProfileWithAuth} from "./pages/profile/Porfile";
+import {LoginPageAuth} from "./pages/login/Login";
+import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
-import {withAuth} from "./AuthContext";
+import {Redirect, Route, Switch} from "react-router-dom";
+import {connect} from "react-redux";
+import MapPage from "./pages/map/Map";
 
 class App extends React.Component {
     state = {activePage: 'login'}
 
     navigateTo = (activePage) => {
-        if (activePage === 'logout'){
+        if (activePage === 'logout') {
             this.props.logout();
         }
         if (this.props.isLoggedIn || activePage === 'register') {
@@ -22,15 +23,33 @@ class App extends React.Component {
         return (
             <div className="App">
                 <main className="main">
-                    {this.state.activePage === 'login' && <LoginPage navigateTo={this.navigateTo}/>}
-                    {this.state.activePage === 'map' && <MapWithAuth navigateTo={this.navigateTo}/>}
-                    {this.state.activePage === 'profile' && <Profile navigateTo={this.navigateTo}/>}
-                    {this.state.activePage === 'logout' && <LoginPage navigateTo={this.navigateTo}/>}
-                    {this.state.activePage === 'register' && <Register navigateTo={this.navigateTo}/>}
+                    <Switch>
+                        <Route path="/" component={LoginPageAuth} exact/>
+                        <PrivateRoute path="/map" component={MapPage}/>
+                        <PrivateRoute path="/profile" component={Profile}/>
+                        <Route path="/register" component={Register}/>
+                    </Switch>
                 </main>
             </div>
         );
     }
 }
 
-export default withAuth(App);
+
+export const PrivateRoute = connect((state) => ({
+    isLoggedIn: state.auth.isLoggedIn,
+}))(({component: Component, isLoggedIn, ...rest}) => (
+    <Route
+        {...rest}
+        render={(props) =>
+            isLoggedIn ? (
+                <Component {...props} />
+            ) : (
+                <Redirect to="/"/>
+            )
+        }
+    />
+));
+export default connect(
+    state => ({isLoggedIn: state.auth.isLoggedIn})
+)(App);
