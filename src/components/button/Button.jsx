@@ -2,9 +2,9 @@ import './Button.css'
 import PropTypes from "prop-types";
 import React from "react";
 
-const Button = ({title}) => {
+const Button = ({title, onClick}) => {
     return (
-        <button className='button' type='submit'>
+        <button className='button' type='submit' onClick={()=> onClick()}>
             {title}
         </button>
     );

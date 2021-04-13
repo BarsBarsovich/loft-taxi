@@ -1,22 +1,13 @@
 import Header from "../../components/header/Header";
 import React from 'react';
-import Mapbox from "../../components/mapbox/Mapbox";
-import {connect} from "react-redux";
-import {getRoutes} from "../../store/actions/actions";
+import {MapboxConnect} from "../../components/mapbox/Mapbox";
 
 function MapPage(props) {
-    props.getRoutes();
-    const routes = props.routesList;
-    debugger
-
     return <>
         <Header/>
-        <Mapbox routesList={routes}/>
+        <MapboxConnect/>
     </>
 
 }
 
-// export default MapPage;
-
-
-export const MapPageConnect = connect(state => ({routesList: state.routes}), {getRoutes})(MapPage)
+export default MapPage;

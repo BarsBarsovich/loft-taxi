@@ -1,0 +1,44 @@
+.MuiSelect-select.MuiSelect-select {
+    border-right: 1px solid #E0E0E0;
+}
+
+.selector-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    position: relative;
+}
+
+.close-icon {
+    margin-left: 11px;
+    cursor: pointer;
+}
+
+.MuiInput-root {
+    text-align: left;
+    width: 100%;
+}
+
+.MuiSelect-select.MuiSelect-select {
+    padding-left: 26px;
+}
+
+.icon {
+    position: absolute;
+    top: 28%;
+    left: 0;
+}
+
+.circle {
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: #000;
+}
+
+.selected-item {
+    font-size: 18px;
+    color: #000;
+}
+

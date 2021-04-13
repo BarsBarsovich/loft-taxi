@@ -1,17 +1,16 @@
-import {SET_ROUTES} from "../actions/actions";
+import {SET_PROFILE} from "../actions/actions";
 
 const initialState = {
-    routes: null
-};
+    isProfileFilled: false
+}
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case SET_ROUTES: {
+        case SET_PROFILE: {
             return {
                 ...state,
-                routes: action.payload
+                isProfileFilled: true
             }
-
         }
         default:
             return state;

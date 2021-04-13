@@ -5,7 +5,7 @@ import React, {useState} from "react";
 import Input from "../../components/input/Input";
 import {Link, useHistory} from "react-router-dom";
 import {connect} from 'react-redux';
-import {authenticate, routesAction} from "../../store/actions/actions";
+import {authenticate, getRoutes, routesAction} from "../../store/actions/actions";
 
 
 export function LoginPage(props) {
@@ -29,7 +29,7 @@ export function LoginPage(props) {
                         props.authenticate(email, password);
 
                         if (props.isLoggedIn) {
-                            props.routesAction()
+                            props.getRoutes()
                             history.push('/map');
                         }
 
@@ -40,7 +40,7 @@ export function LoginPage(props) {
                         <div className="login__forgot-password">
                             <a href="/" className='text'> Забыли пароль ?</a>
                         </div>
-                        <Button title='Войти' type='submit'/>
+                        <Button title='Войти' type='submit' onClick={() => ({})}/>
                     </form>
                     <div className="login__footer">
                         <span className='text'>Новый пользователь?</span>
@@ -57,6 +57,6 @@ export function LoginPage(props) {
 
 export const LoginPageAuth = connect(
     state => ({isLoggedIn: state.auth.isLoggedIn, routes: state.routes}),
-    {authenticate, routesAction})
+    {authenticate, getRoutes})
 (LoginPage)
 

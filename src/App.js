@@ -1,32 +1,25 @@
 import './App.css';
 import React from 'react';
-import {Redirect, Route} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
-import MapPage, {MapPageConnect} from "./pages/map/Map";
+import MapPage from "./pages/map/Map";
+import {LoginPageAuth} from "./pages/login/Login";
+import {ProfileWithAuth} from "./pages/profile/Profile";
+import Register from "./pages/register/Register";
 
 class App extends React.Component {
     state = {activePage: 'login'}
-
-    navigateTo = (activePage) => {
-        if (activePage === 'logout') {
-            this.props.logout();
-        }
-        if (this.props.isLoggedIn || activePage === 'register') {
-            this.setState({activePage})
-        }
-    }
 
     render() {
         return (
             <div className="App">
                 <main className="main">
-                    <MapPageConnect/>
-                    {/*<Switch>*/}
-                    {/*    <Route path="/" component={LoginPageAuth} exact/>*/}
-                    {/*    <PrivateRoute path="/map" component={MapPage}/>*/}
-                    {/*    <PrivateRoute path="/profile" component={Profile}/>*/}
-                    {/*    <Route path="/register" component={Register}/>*/}
-                    {/*</Switch>*/}
+                    <Switch>
+                        <Route path="/" component={LoginPageAuth} exact/>
+                        <PrivateRoute path="/map" component={MapPage}/>
+                        <PrivateRoute path="/profile" component={ProfileWithAuth}/>
+                        <Route path="/register" component={Register}/>
+                    </Switch>
                 </main>
             </div>
         );

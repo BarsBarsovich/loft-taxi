@@ -1,24 +1,38 @@
 import './Order.css'
-import {MenuItem, Select} from "@material-ui/core";
+import {connect} from "react-redux";
+import RouteSelector from "../select/RouteSelector";
+import {useState} from "react";
+import Button from "../button/Button";
+import TariffItem from "../tariff-item/TariffItem";
 
 const OrderForm = ({routes}) => {
-    debugger
-    return <>
-        <Select
-            labelId="demo-controlled-open-select-label"
-            id="demo-controlled-open-select"
-            className="select"
-        >
+    const [fromRouteValue, setFromValue] = useState();
+    const [toRouteValue, setToValue] = useState();
 
-            <MenuItem value="">
-                 <em>None</em>
-            </MenuItem>
-            {/*// <MenuItem value={20}>Twenty</MenuItem>*/}
-            {/*// <MenuItem value={30}>Thirty</MenuItem>*/}
-        </Select>
+
+    return <>
+        <div className="routes-wrapper">
+            <div className="routes-container">
+                <div className="points-selector">
+                    <RouteSelector routes={routes && routes.filter(item => item !== toRouteValue)}
+                                   onChange={setFromValue} mode="from" value={fromRouteValue}/>
+                    <RouteSelector routes={routes && routes.filter(item => item !== fromRouteValue)}
+                                   onChange={setToValue} mode="to" value={toRouteValue}/>
+                </div>
+            </div>
+            <div className="splitter"></div>
+            <div className="tariff-selector">
+                <div className="tariff-list">
+                    <TariffItem name="standart" title="Стандарт" price="150"/>
+                    <TariffItem name="premium" title="Премиум" price="250"/>
+                    <TariffItem name="business" title="Бизнес" price="300"/>
+                </div>
+                <Button title="Заказать"/>
+            </div>
+        </div>
     </>
 }
 
-export default OrderForm;
+export const OrderFormConnect = connect(state => ({routes: state.routes.routes}), null)(OrderForm);
 
 
