@@ -4,19 +4,30 @@ import RouteSelector from "../select/RouteSelector";
 import {useState} from "react";
 import Button from "../button/Button";
 import TariffItem from "../tariff-item/TariffItem";
+import {setAddress} from "../../store/actions/actions";
 
-const OrderForm = ({routes}) => {
+const OrderForm = (props) => {
     const [fromRouteValue, setFromValue] = useState();
     const [toRouteValue, setToValue] = useState();
 
 
     return <>
-        <div className="routes-wrapper">
+        <form className="routes-wrapper" onSubmit={(e) => {
+            e.preventDefault();
+            
+            if (!fromRouteValue && !toRouteValue) {
+                return;
+            }
+
+            props.setAddress(fromRouteValue, toRouteValue);
+
+        }
+        }>
             <div className="routes-container">
                 <div className="points-selector">
-                    <RouteSelector routes={routes && routes.filter(item => item !== toRouteValue)}
+                    <RouteSelector routes={props.routes && props.routes.filter(item => item !== toRouteValue)}
                                    onChange={setFromValue} mode="from" value={fromRouteValue}/>
-                    <RouteSelector routes={routes && routes.filter(item => item !== fromRouteValue)}
+                    <RouteSelector routes={props.routes && props.routes.filter(item => item !== fromRouteValue)}
                                    onChange={setToValue} mode="to" value={toRouteValue}/>
                 </div>
             </div>
@@ -29,10 +40,12 @@ const OrderForm = ({routes}) => {
                 </div>
                 <Button title="Заказать"/>
             </div>
-        </div>
+        </form>
     </>
 }
 
-export const OrderFormConnect = connect(state => ({routes: state.routes.routes}), null)(OrderForm);
+export const OrderFormConnect = connect(state => ({
+    routes: state.routes.routes,
+}), {setAddress})(OrderForm);
 
 

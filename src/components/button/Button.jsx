@@ -4,7 +4,7 @@ import React from "react";
 
 const Button = ({title, onClick}) => {
     return (
-        <button className='button' type='submit' onClick={()=> onClick()}>
+        <button className='button' type='submit'>
             {title}
         </button>
     );

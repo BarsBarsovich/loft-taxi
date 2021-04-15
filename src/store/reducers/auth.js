@@ -7,7 +7,8 @@ const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case LOGIN_ACTION: {
-            return {isLoggedIn: true}
+            debugger
+            return {isLoggedIn: true, token: action.payload}
         }
         case LOGOUT_ACTION: {
             return {isLoggedIn: false}

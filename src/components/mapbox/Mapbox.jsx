@@ -12,6 +12,15 @@ class Mapbox extends Component {
 
     mapContainer = React.createRef();
 
+    drawRoute() {
+        // this.map.flyTo({
+        //     center: coordinates[0],
+        //     zoom: 15,
+        // });
+
+
+    };
+
     componentDidMount() {
         mapboxgl.accessToken = MAP_TOKEN;
 
@@ -22,6 +31,8 @@ class Mapbox extends Component {
             zoom: 10,
         });
 
+        // this.map.on('style.load', () => this.drawRoute());
+
 
     }
 
@@ -31,6 +42,7 @@ class Mapbox extends Component {
 
 
     render() {
+        const coordsList = this.props.coords;
         return <div className='map-container'>
             <div data-testid="map" className='map' ref={this.mapContainer}>
                 <OrderFormConnect/>
@@ -41,4 +53,7 @@ class Mapbox extends Component {
 
 export default Mapbox;
 
-export const MapboxConnect = connect( state => ({isProfileFilled: state.isProfileFilled.isProfileFilled}), null)(Mapbox)
+export const MapboxConnect = connect(state => ({
+    isProfileFilled: state.isProfileFilled.isProfileFilled,
+    coords: state.coords.coords
+}), null)(Mapbox)

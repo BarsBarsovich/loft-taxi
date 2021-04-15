@@ -18,8 +18,12 @@ function Profile(props) {
 
 
     const setProfileInfo = () => {
-        // debugger
-        props.setProfile();
+        const token = props.token;
+
+        if (!cardNumber ||!cardMoth || !name || !cvc || !token){
+            return;
+        }
+        props.setProfile(cardNumber, cardMoth, name, cvc, token);
     }
 
     return (
@@ -30,9 +34,12 @@ function Profile(props) {
                     <div className="profile__container">
                         <p className="title">Профиль</p>
                         <span className="profile-subtitle">Ввдеите платежные данные</span>
-                        <div className="profile__values">
-                            <div className="profile__fio">
-                                <form>
+                        <form onSubmit={(event) => {
+                            event.preventDefault();
+                            setProfileInfo()
+                        }}>
+                            <div className="profile__values">
+                                <div className="profile__fio">
                                     <Input value={name} title='Имя владельца' type='text' placeholder='Имя владельца'
                                            onChange={setName}/>
                                     <Input value={cardNumber} title='Номер карты' type='text' placeholder='Номер карты'
@@ -43,34 +50,34 @@ function Profile(props) {
                                         <Input value={cvc} title='CVC' type='password' placeholder='CVC'
                                                onChange={setCVC} className='no_mt'/>
                                     </div>
-                                </form>
-                            </div>
-                            <div className="profile__card">
-                                <div className="card">
-                                    <div className="card__container">
-                                        <div className="card__row">
-                                            <img src={logo} alt=""/>
-                                            <span className='card-date'>{cardMoth}</span>
+                                </div>
+                                <div className="profile__card">
+                                    <div className="card">
+                                        <div className="card__container">
+                                            <div className="card__row">
+                                                <img src={logo} alt=""/>
+                                                <span className='card-date'>{cardMoth}</span>
 
-                                        </div>
-                                        <div className="card__row">
-                                            {cardNumber}
-                                        </div>
-                                        <div className="card__row">
-                                            <img src={chip} alt=""/>
-                                            <div className="circle-wrapper">
-                                                <img src={circle} alt=""/>
-                                                <img src={circle} alt="" className="second-circle"/>
                                             </div>
+                                            <div className="card__row">
+                                                {cardNumber}
+                                            </div>
+                                            <div className="card__row">
+                                                <img src={chip} alt=""/>
+                                                <div className="circle-wrapper">
+                                                    <img src={circle} alt=""/>
+                                                    <img src={circle} alt="" className="second-circle"/>
+                                                </div>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="button__container">
-                            <Button title="Сохранить" onClick={() => setProfileInfo()}/>
-                        </div>
+                            <div className="button__container">
+                                <Button title="Сохранить"/>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -80,5 +87,5 @@ function Profile(props) {
 
 export default Profile;
 export const ProfileWithAuth = connect(
-    null, {LOGOUT_ACTION, setProfile}
+    state => ({token: state.auth.token}), {LOGOUT_ACTION, setProfile}
 )(Profile);
