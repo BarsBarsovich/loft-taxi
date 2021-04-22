@@ -54,6 +54,6 @@ class Mapbox extends Component {
 export default Mapbox;
 
 export const MapboxConnect = connect(state => ({
-    isProfileFilled: state.isProfileFilled.isProfileFilled,
+    isProfileFilled: state.profile.isProfileFilled.isProfileFilled,
     coords: state.coords.coords
 }), null)(Mapbox)

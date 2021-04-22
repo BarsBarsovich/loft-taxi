@@ -2,7 +2,7 @@ import './Button.css'
 import PropTypes from "prop-types";
 import React from "react";
 
-const Button = ({title, onClick}) => {
+const Button = ({title}) => {
     return (
         <button className='button' type='submit'>
             {title}

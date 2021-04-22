@@ -4,4 +4,4 @@ import routesReducer from "./routes"
 import profileReducer from "./profile";
 import addressReducer from "./addresses"
 
-export default combineReducers({auth: authReducer, routes: routesReducer, isProfileFilled: profileReducer, coords: addressReducer});
+export default combineReducers({auth: authReducer, routes: routesReducer, profile: profileReducer, coords: addressReducer});

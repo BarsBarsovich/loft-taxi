@@ -1,29 +1,30 @@
 import Header from "../../components/header/Header";
-import React, {useState} from 'react';
+import React from 'react';
 import {connect} from "react-redux";
-import {LOGOUT_ACTION, setProfile} from "../../store/actions/actions";
+import {getCard, LOGOUT_ACTION, setProfile, setProfileAction} from "../../store/actions/actions";
 import './Profile.css';
-import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import logo from './card-logo.svg';
 import chip from './card-chip.svg'
 import circle from './circle.png'
+import {useForm} from "react-hook-form";
 
 function Profile(props) {
 
-    const [name, setName] = useState();
-    const [cardNumber, setCardNumber] = useState();
-    const [cardMoth, setCardMonth] = useState();
-    const [cvc, setCVC] = useState();
+    const {
+        register,
+        handleSubmit,
+        formState: {errors}
+    } = useForm();
 
 
-    const setProfileInfo = () => {
+    const setProfileInfo = (data) => {
         const token = props.token;
+        const {cardNumber, expiryDate, name, cvc} = data;
 
-        if (!cardNumber ||!cardMoth || !name || !cvc || !token){
-            return;
-        }
-        props.setProfile(cardNumber, cardMoth, name, cvc, token);
+
+        props.setProfile(cardNumber, expiryDate, name, cvc, token);
+
     }
 
     return (
@@ -34,21 +35,42 @@ function Profile(props) {
                     <div className="profile__container">
                         <p className="title">Профиль</p>
                         <span className="profile-subtitle">Ввдеите платежные данные</span>
-                        <form onSubmit={(event) => {
-                            event.preventDefault();
-                            setProfileInfo()
-                        }}>
+                        <form onSubmit={handleSubmit(setProfileInfo)}>
                             <div className="profile__values">
                                 <div className="profile__fio">
-                                    <Input value={name} title='Имя владельца' type='text' placeholder='Имя владельца'
-                                           onChange={setName}/>
-                                    <Input value={cardNumber} title='Номер карты' type='text' placeholder='Номер карты'
-                                           onChange={setCardNumber}/>
+                                    <label className="login__label" data-testid='input'>
+                                        <p className='login__label-title'>Имя владельца</p>
+                                        <input type="text" defaultValue={props.profileInfo.cardName}
+                                               placeholder='Имя владельца' className='login__input'
+                                               {...register("name", {required: true})}
+                                        />
+                                        {errors.name && <span>Поле обязательно для заполнения</span>}
+                                    </label>
+                                    <label className="login__label" data-testid='input'>
+                                        <p className='login__label-title'>Номер карты</p>
+                                        <input defaultValue={props.profileInfo.cardNumber} type="text"
+                                               placeholder='Номер карты' className='login__input'
+                                               {...register("cardNumber", {required: true})}
+                                        />
+                                        {errors.cardNumber && <span>Поле обязательно для заполнения</span>}
+                                    </label>
+
                                     <div className="profile__card-dates">
-                                        <Input value={cardMoth} title='MM/YY' type='number' placeholder='MM/YY'
-                                               onChange={setCardMonth} className='mr35'/>
-                                        <Input value={cvc} title='CVC' type='password' placeholder='CVC'
-                                               onChange={setCVC} className='no_mt'/>
+                                        <label className="login__label mr35" data-testid='input'>
+                                            <p className='login__label-title'>MM/YY</p>
+                                            <input defaultValue={props.profileInfo.expiryDate} type="number" placeholder='MM/YY' className='login__input mr35'
+                                                   {...register("expiryDate", {required: true})}
+                                            />
+                                            {errors.expiryDate && <span>Поле обязательно для заполнения</span>}
+                                        </label>
+                                        <label className="login__label" data-testid='input'>
+                                            <p className='login__label-title'>CVC</p>
+                                            <input type="number" placeholder='CVC' className='login__input no_mt'
+                                                   defaultValue={props.profileInfo.cvc}
+                                                   {...register("cvc", {required: true})}
+                                            />
+                                            {errors.cvc && <span>Поле обязательно для заполнения</span>}
+                                        </label>
                                     </div>
                                 </div>
                                 <div className="profile__card">
@@ -56,11 +78,13 @@ function Profile(props) {
                                         <div className="card__container">
                                             <div className="card__row">
                                                 <img src={logo} alt=""/>
-                                                <span className='card-date'>{cardMoth}</span>
+                                                <span className='card-date'>
+                                                    {props.profileInfo.expiryDate}
+                                                </span>
 
                                             </div>
                                             <div className="card__row">
-                                                {cardNumber}
+                                                {props.profileInfo.cardNumber}
                                             </div>
                                             <div className="card__row">
                                                 <img src={chip} alt=""/>
@@ -87,5 +111,10 @@ function Profile(props) {
 
 export default Profile;
 export const ProfileWithAuth = connect(
-    state => ({token: state.auth.token}), {LOGOUT_ACTION, setProfile}
+    state => ({token: state.auth.token, profileInfo: state.profile.profile}), {
+        LOGOUT_ACTION,
+        setProfile,
+        setProfileAction,
+        getCard
+    }
 )(Profile);

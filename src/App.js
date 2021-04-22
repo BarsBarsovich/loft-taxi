@@ -5,10 +5,9 @@ import {connect} from "react-redux";
 import MapPage from "./pages/map/Map";
 import {LoginPageAuth} from "./pages/login/Login";
 import {ProfileWithAuth} from "./pages/profile/Profile";
-import Register from "./pages/register/Register";
+import Register, {RegisterWithAuth} from "./pages/register/Register";
 
 class App extends React.Component {
-    state = {activePage: 'login'}
 
     render() {
         return (
@@ -18,7 +17,7 @@ class App extends React.Component {
                         <Route path="/" component={LoginPageAuth} exact/>
                         <PrivateRoute path="/map" component={MapPage}/>
                         <PrivateRoute path="/profile" component={ProfileWithAuth}/>
-                        <Route path="/register" component={Register}/>
+                        <Route path="/register" component={RegisterWithAuth}/>
                     </Switch>
                 </main>
             </div>
