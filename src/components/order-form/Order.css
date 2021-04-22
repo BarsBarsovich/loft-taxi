@@ -1,0 +1,42 @@
+.routes-wrapper {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 486px;
+    height: 319px;
+
+    background: #FFFFFF;
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.routes-container {
+    padding: 25px 25px 0 25px;
+}
+
+.points-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.splitter {
+    height: 1px;
+    background: #E0E0E0;
+    width: 100%;
+}
+
+
+.tariff-selector {
+    background: #FFFFFF;
+    box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    height: 100%;
+}
+
+.tariff-list {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}

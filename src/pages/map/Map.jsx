@@ -1,11 +1,11 @@
 import Header from "../../components/header/Header";
 import React from 'react';
-import Mapbox from "../../components/mapbox/Mapbox";
+import {MapboxConnect} from "../../components/mapbox/Mapbox";
 
-function MapPage() {
+function MapPage(props) {
     return <>
         <Header/>
-        <Mapbox/>
+        <MapboxConnect/>
     </>
 
 }
