@@ -26,11 +26,10 @@ import {
 export function* authenticateSaga(action) {
     const {email, password} = action.payload;
     const success = yield call(sendRequestToLogin, email, password);
-
     if (!success.success) {
         return;
     }
-
+    localStorage.setItem('token', success.token);
     yield put(login(success.token));
 }
 
@@ -53,9 +52,10 @@ export function* routeSaga() {
 }
 
 export function* fillProfile(action) {
+    
     const {cardNumber, expiryDate, cardName, cvc, token} = action.payload;
 
-    const success = yield call(sendRequestToFillProfile(cardNumber, expiryDate, cardName, cvc, token));
+    const success = yield call(sendRequestToFillProfile,cardNumber, expiryDate, cardName, cvc, token);
     
     if (!success) {
         return;

@@ -9,7 +9,8 @@ export default function (state = initialState, action) {
         case SET_PROFILE: {
             return {
                 ...state,
-                isProfileFilled: true
+                isProfileFilled: true,
+                profileChanged: true
             }
         }
         case SET_CARD:{

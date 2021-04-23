@@ -2,10 +2,10 @@ import './App.css';
 import React from 'react';
 import {Redirect, Route, Switch} from "react-router-dom";
 import {connect} from "react-redux";
-import MapPage from "./pages/map/Map";
+import MapPage, {MapPageConnect} from "./pages/map/Map";
 import {LoginPageAuth} from "./pages/login/Login";
-import {ProfileWithAuth} from "./pages/profile/Profile";
-import Register, {RegisterWithAuth} from "./pages/register/Register";
+import Profile, {ProfileWithAuth} from "./pages/profile/Profile";
+import {RegisterWithAuth} from "./pages/register/Register";
 
 class App extends React.Component {
 
@@ -16,7 +16,7 @@ class App extends React.Component {
                     <Switch>
                         <Route path="/" component={LoginPageAuth} exact/>
                         <PrivateRoute path="/map" component={MapPage}/>
-                        <PrivateRoute path="/profile" component={ProfileWithAuth}/>
+                        <PrivateRoute path="/profile" component={Profile}/>
                         <Route path="/register" component={RegisterWithAuth}/>
                     </Switch>
                 </main>

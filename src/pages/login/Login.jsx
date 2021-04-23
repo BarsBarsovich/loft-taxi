@@ -23,9 +23,6 @@ export function LoginPage(props) {
         props.authenticate(email, password);
 
         if (props.isLoggedIn) {
-            props.getRoutes();
-            const token = props.token;
-            props.getCard(token);
             history.push('/map');
         }
 

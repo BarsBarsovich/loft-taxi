@@ -2,7 +2,7 @@ import {LOGIN_ACTION, LOGOUT_ACTION, REGISTER_ACTION} from "../actions/actions";
 import Register from "../../pages/register/Register";
 
 const initialState = {
-    isLoggedIn: false
+    isLoggedIn: Boolean(localStorage.getItem('token'))
 };
 
 export default function (state = initialState, action) {
