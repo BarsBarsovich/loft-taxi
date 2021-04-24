@@ -3,24 +3,33 @@ import {
     ADDRESS,
     addressAction,
     AUTHENTICATE,
+    GET_CARD,
     login,
     PROFILE,
     profileAction,
+    register,
     ROUTES,
-    routesAction
+    routesAction,
+    SET_REGISTER,
+    setCard,
 } from "./actions/actions";
-import {sendRequestToCoords, sendRequestToFillProfile, sendRequestToLogin, sendRequestToRoutes} from "./api";
+import {
+    sendRequestToCoords,
+    sendRequestToFillProfile,
+    sendRequestToGetProfile,
+    sendRequestToLogin,
+    sendRequestToRegister,
+    sendRequestToRoutes
+} from "./api";
 
 
 export function* authenticateSaga(action) {
     const {email, password} = action.payload;
     const success = yield call(sendRequestToLogin, email, password);
-
-
-    if (!success) {
+    if (!success.success) {
         return;
     }
-
+    localStorage.setItem('token', success.token);
     yield put(login(success.token));
 }
 
@@ -43,10 +52,11 @@ export function* routeSaga() {
 }
 
 export function* fillProfile(action) {
+    
     const {cardNumber, expiryDate, cardName, cvc, token} = action.payload;
 
-    const success = yield call(sendRequestToFillProfile(cardNumber, expiryDate, cardName, cvc, token));
-    debugger
+    const success = yield call(sendRequestToFillProfile,cardNumber, expiryDate, cardName, cvc, token);
+    
     if (!success) {
         return;
     }
@@ -72,6 +82,39 @@ export function* addressListSaga() {
     yield takeEvery(ADDRESS, getAddressesListSaga);
 }
 
+export function* setRegister(action){
+    const {email, password, name} = action.payload;
+
+    const response = yield call(sendRequestToRegister, email, password, name);
+    
+
+    if (!response.success){
+        return;
+    }
+
+    yield put(register(response.token))
+}
+
+export function* registerSaga(){
+    yield takeEvery(SET_REGISTER, setRegister)
+}
+
+export function* getProfileInfo(action){
+    const {token} = action.payload;
+
+    const response = yield call(sendRequestToGetProfile, token);
+
+    if (!response){
+        return
+    }
+
+    yield put(setCard(response));
+}
+
+export function* getProfileSaga(){
+    yield takeEvery(GET_CARD, getProfileInfo)
+}
+
 
 export function* rootSaga() {
     yield all([
@@ -79,5 +122,7 @@ export function* rootSaga() {
         fork(authSaga),
         fork(profileSaga),
         fork(routeSaga),
+        fork(registerSaga),
+        fork(getProfileSaga)
     ]);
 }

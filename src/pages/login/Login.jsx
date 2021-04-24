@@ -1,18 +1,33 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import Button from "../../components/button/Button";
 import './Login.css';
-import React, {useState} from "react";
-import Input from "../../components/input/Input";
+import React from "react";
 import {Link, useHistory} from "react-router-dom";
 import {connect} from 'react-redux';
-import {authenticate, getRoutes, routesAction} from "../../store/actions/actions";
+import {authenticate, getCard, getRoutes, setProfileAction} from "../../store/actions/actions";
+import {useForm} from "react-hook-form";
 
 
 export function LoginPage(props) {
-    let [email, setEmail] = useState('');
-    let [password, setPassword] = useState('');
+    const {
+        register,
+        handleSubmit,
+        formState: {errors}
+    } = useForm();
 
     const history = useHistory();
+
+    const submit = (data) => {
+        const {email, password} = data;
+
+        props.authenticate(email, password);
+
+        if (props.isLoggedIn) {
+            history.push('/map');
+        }
+
+
+    }
 
     return <div className='wrapper'>
         <Sidebar/>
@@ -20,27 +35,25 @@ export function LoginPage(props) {
             <div className='login'>
                 <div className="login__container">
                     <p className='login-title'>Войти</p>
-                    <form className='login-form' onSubmit={(e) => {
-                        e.preventDefault();
-                        if (!email || !password) {
-                            return;
-                        }
-
-                        props.authenticate(email, password);
-
-                        if (props.isLoggedIn) {
-                            props.getRoutes()
-                            history.push('/map');
-                        }
-
-                    }}>
-                        <Input value={email} title='Email' type='text' placeholder='mail@mail.ru' onChange={setEmail}/>
-                        <Input value={password} title='Пароль' type='password' placeholder='Введите пароль'
-                               onChange={setPassword}/>
+                    <form className='login-form' onSubmit={handleSubmit(submit)}>
+                        <label className="login__label" data-testid='input'>
+                            <p className='login__label-title'>Email*</p>
+                            <input type="text" placeholder='mail@mail.ru' className='login__input'
+                                   {...register("email", {required: true})}
+                            />
+                            {errors.email && <span>Поле обязательно для заполнения</span>}
+                        </label>
+                        <label className="login__label" data-testid='input'>
+                            <p className='login__label-title'>Пароль*</p>
+                            <input type="password" placeholder='mail@mail.ru' className='login__input'
+                                   {...register("password", {required: true})}
+                            />
+                            {errors.password && <span>Поле обязательно для заполнения</span>}
+                        </label>
                         <div className="login__forgot-password">
                             <a href="/" className='text'> Забыли пароль ?</a>
                         </div>
-                        <Button title='Войти' type='submit' onClick={() => ({})}/>
+                        <Button title='Войти' type='submit'/>
                     </form>
                     <div className="login__footer">
                         <span className='text'>Новый пользователь?</span>
@@ -56,7 +69,7 @@ export function LoginPage(props) {
 }
 
 export const LoginPageAuth = connect(
-    state => ({isLoggedIn: state.auth.isLoggedIn, routes: state.routes}),
-    {authenticate, getRoutes})
+    state => ({isLoggedIn: state.auth.isLoggedIn, routes: state.routes, token: state.auth.token}),
+    {authenticate, getRoutes, getCard})
 (LoginPage)
 

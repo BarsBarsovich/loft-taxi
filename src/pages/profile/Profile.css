@@ -46,7 +46,7 @@
 
 .profile__card-dates {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: flex-start;
     margin-top: 23px;
 }
@@ -103,4 +103,9 @@
 .second-circle {
     margin-left: -13px;
     opacity: 0.6;
+}
+
+.mb28 {
+    padding-bottom: 28px;
+    display: block;
 }
